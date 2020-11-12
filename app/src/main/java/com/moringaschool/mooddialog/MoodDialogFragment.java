@@ -1,6 +1,10 @@
 package com.moringaschool.mooddialog;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,38 +23,55 @@ import butterknife.ButterKnife;
 
 public class MoodDialogFragment extends DialogFragment {
 
-
-//    Button moodButton = (Button) .findViewById(R.id.cancelButton);
-//    Button submitButton = (Button) rootView.findViewById(R.id.submitButton);
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
-        View rootView = inflater.inflate(R.layout.fragment_mood_dialog, container, false);
-        getDialog().setTitle("Simple Dialog");
-        Button cancelButton = (Button) rootView.findViewById(R.id.cancelButton);
-        Button submitButton = (Button) rootView.findViewById(R.id.submitButton);
+    public Dialog onCreateDialog(Bundle saveInstanceState) {
+       // Context context;
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Dialog Via Builder");
+        builder.setMessage("Would you like to take a survey?");
 
-            RadioGroup surveyRadioGroup = (RadioGroup) rootView.findViewById(R.id.moodRadioGroup);// pull the button group
-        int selectedId = surveyRadioGroup.getCheckedRadioButtonId();//get selected radio button
-        final RadioButton selectedRadioButton = (RadioButton) rootView.findViewById(selectedId);// get radio button values via ID
-
-
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Log.d("testing", selectedRadioButton.getText().toString());
+            public void onClick(DialogInterface dialog, int which) {
                 dismiss();
             }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        builder.setNegativeButton("Nope", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(DialogInterface dialog, int which) {
                 dismiss();
             }
         });
-        return rootView;
+        return builder.create();
     }
-
 }
+
+//        View rootView = inflater.inflate(R.layout.fragment_mood_dialog, container, false);
+//        getDialog().setTitle("Simple Dialog");
+//        Button cancelButton = (Button) rootView.findViewById(R.id.cancelButton);
+//        Button submitButton = (Button) rootView.findViewById(R.id.submitButton);
+//
+//            RadioGroup surveyRadioGroup = (RadioGroup) rootView.findViewById(R.id.moodRadioGroup);// pull the button group
+//        int selectedId = surveyRadioGroup.getCheckedRadioButtonId();//get selected radio button
+//        final RadioButton selectedRadioButton = (RadioButton) rootView.findViewById(selectedId);// get radio button values via ID
+//
+//
+//        submitButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d("testing", selectedRadioButton.getText().toString());
+//                dismiss();
+//            }
+//        });
+//
+//        cancelButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dismiss();
+//            }
+//        });
+//        return rootView;
+//    }
+
+
